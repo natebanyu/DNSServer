@@ -45,7 +45,7 @@ def decrypt_with_aes(encrypted_data, password, salt):
 
 # === UPDATE THIS WITH YOUR ACTUAL NYU EMAIL / NETID ===
 salt = b'Tandon'  # byte-object, per the instructions
-password = 'YOUR_ACTUAL_NETID@nyu.edu'  # <--- REPLACE WITH YOUR REAL NYU EMAIL FROM GRADESCOPE
+password = 'nb4406@nyu.edu'
 input_string = 'AlwaysWatching'
 
 encrypted_value = encrypt_with_aes(input_string, password, salt)  # exfil function
