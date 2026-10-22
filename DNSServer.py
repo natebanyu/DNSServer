@@ -43,9 +43,9 @@ def decrypt_with_aes(encrypted_data, password, salt):
     decrypted_data = f.decrypt(encrypted_data)  # call the Fernet decrypt method
     return decrypted_data.decode('utf-8')
 
-# === UPDATE THIS WITH YOUR ACTUAL NYU EMAIL / NETID ===
+# Configuration parameters
 salt = b'Tandon'  # byte-object, per the instructions
-password = 'nb4406@nyu.edu'
+password = 'nb4406@nyu.edu'  
 input_string = 'AlwaysWatching'
 
 encrypted_value = encrypt_with_aes(input_string, password, salt)  # exfil function
@@ -91,7 +91,8 @@ dns_records = {
     },
     'nyu.edu.': {
         dns.rdatatype.A: '192.168.1.106',
-        dns.rdatatype.TXT: (encrypted_value.decode('utf-8'),),
+        # Wrapped in double quotes so dns.rdata.from_text parses the TXT string correctly without corruption
+        dns.rdatatype.TXT: (f'"{encrypted_value.decode("utf-8")}"',),
         dns.rdatatype.MX: [(10, 'mxa-00256a01.gslb.pphosted.com.')],
         dns.rdatatype.AAAA: '2001:db8:85a3::8a2e:373:7312',
         dns.rdatatype.NS: 'ns1.nyu.edu.',
